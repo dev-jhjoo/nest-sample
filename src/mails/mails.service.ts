@@ -1,10 +1,10 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { send } from 'node:process';
+import {
+  NotFoundMailIdException,
+  NotFoundMailSenderException,
+} from 'src/exception/http-exception';
 import { SendMailDTO } from '../mails/dto/send-mail.dto';
 import { Mails } from './entities/mail.entity';
 
@@ -16,24 +16,27 @@ export class MailsService {
     return await this._mailModel.findAll();
   }
 
-  async findOne(id: number): Promise<Mails | void> {
+  async findOne(id: number): Promise<Mails> {
+    return await this._mailModel.findOne({ where: { id } }).then((result) => {
+      if (!result) {
+        throw new NotFoundMailIdException(id);
+      }
+      return result;
+    });
+  }
+
+  async findOneBySender(sender: string): Promise<Mails[]> {
     return await this._mailModel
-      .findOne({ where: { id } })
-      .then(this.fulfilled)
-      .catch(this.errorHandler);
+      .findAll({ where: { sender } })
+      .then((result) => {
+        if (!result) {
+          throw new NotFoundMailSenderException(sender);
+        }
+        return result;
+      });
   }
 
   async create(sendMailData: SendMailDTO): Promise<Mails> {
     return await Mails.create(sendMailData);
   }
-
-  fulfilled = (fulfilled) => {
-    if (!fulfilled) {
-      throw new NotFoundException();
-    }
-  };
-
-  errorHandler = (error) => {
-    throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
-  };
 }
