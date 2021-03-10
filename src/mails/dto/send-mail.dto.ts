@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator';
-import { Mail } from './mail.model';
+import { Mails } from '../entities/mail.entity';
 
-export class SendMailModel extends Mail {
+export class SendMailDTO extends Mails {
   @IsString()
   readonly sender: string;
   @IsString()

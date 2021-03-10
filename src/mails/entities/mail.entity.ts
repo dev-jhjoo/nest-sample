@@ -1,4 +1,3 @@
-import { IsOptional } from 'class-validator';
 import {
   AutoIncrement,
   Column,
@@ -7,14 +6,13 @@ import {
   Model,
   PrimaryKey,
   Table,
-  UpdatedAt,
 } from 'sequelize-typescript';
 
 @Table({
   tableName: 'mails',
   underscored: true,
 })
-export class Mail extends Model<Mail> {
+export class Mails extends Model<Mails> {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.BIGINT.UNSIGNED)
@@ -26,18 +24,15 @@ export class Mail extends Model<Mail> {
   @Column(DataType.STRING)
   receiver: string;
 
-  @IsOptional()
   @Column(DataType.STRING)
   title: string;
 
-  @IsOptional()
   @Column(DataType.TEXT)
   contents: string;
 
   @CreatedAt
   createdAt: Date;
 
-  @IsOptional()
-  @UpdatedAt
+  @Column(DataType.DATE)
   updatedAt: Date;
 }

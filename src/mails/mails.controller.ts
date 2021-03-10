@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { SendMailModel } from 'src/models/send-mail.model';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { SendMailDTO } from '../mails/dto/send-mail.dto';
 import { MailsService } from './mails.service';
 
 @Controller('mails')
@@ -7,12 +7,17 @@ export class MailsController {
   constructor(private readonly service: MailsService) {}
 
   @Get()
-  async getAllMails() {
-    return { mail_list: await this.service.findAll() };
+  getAllMails() {
+    return this.service.findAll();
+  }
+
+  @Get(':id')
+  getOneMail(@Param('id') id: number) {
+    return this.service.findOne(id);
   }
 
   @Post()
-  sendMain(@Body() sendMailData: SendMailModel) {
+  sendMain(@Body() sendMailData: SendMailDTO) {
     return this.service.create(sendMailData);
   }
 }

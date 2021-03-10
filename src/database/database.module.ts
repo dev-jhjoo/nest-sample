@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Mail } from '../models/mail.model';
+import { Mails } from '../mails/entities/mail.entity';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { Mail } from '../models/mail.model';
       username: process.env.MAIL_DB_USERNAME,
       password: process.env.MAIL_DB_PASSWORD,
       database: process.env.MAIL_DB_DATABASE,
-      models: [Mail],
+      models: [Mails],
       autoLoadModels: true,
       synchronize: true,
     }),

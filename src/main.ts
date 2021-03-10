@@ -13,7 +13,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('swagger-api', app, document);
 
   await app.listen(process.env.MAIL_APP_PORT, () => {
     console.log('> mail server on port=' + process.env.MAIL_APP_PORT);
