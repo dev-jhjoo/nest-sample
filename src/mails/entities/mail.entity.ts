@@ -5,7 +5,7 @@ import {
   DataType,
   Model,
   PrimaryKey,
-  Table,
+  Table
 } from 'sequelize-typescript';
 
 @Table({
@@ -15,24 +15,24 @@ import {
 export class Mails extends Model<Mails> {
   @AutoIncrement
   @PrimaryKey
-  @Column(DataType.BIGINT.UNSIGNED)
+  @Column( DataType.BIGINT.UNSIGNED )
   id: number;
 
-  @Column(DataType.STRING)
+  @Column( DataType.STRING )
   sender: string;
 
-  @Column(DataType.STRING)
+  @Column( DataType.STRING )
   receiver: string;
 
-  @Column(DataType.STRING)
+  @Column( DataType.STRING )
   title: string;
 
-  @Column(DataType.TEXT)
+  @Column( DataType.TEXT )
   contents: string;
 
   @CreatedAt
   createdAt: Date;
 
-  @Column(DataType.DATE)
+  @Column( DataType.DATE )
   updatedAt: Date;
 }

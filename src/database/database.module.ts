@@ -7,11 +7,11 @@ import { Mails } from '../mails/entities/mail.entity';
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: process.env.MAIL_DB_HOST,
-      port: parseInt(process.env.MAIL_DB_PORT),
+      port: parseInt( process.env.MAIL_DB_PORT ),
       username: process.env.MAIL_DB_USERNAME,
       password: process.env.MAIL_DB_PASSWORD,
       database: process.env.MAIL_DB_DATABASE,
-      models: [Mails],
+      models: [ Mails ],
       autoLoadModels: true,
       synchronize: true,
     }),
